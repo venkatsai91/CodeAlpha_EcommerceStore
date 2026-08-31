@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>My Orders</title>
+
+    <link rel="stylesheet"
+          href="{% static 'store/style.css' %}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>🛒 My Orders</h1>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="{% url 'cart' %}">
+            Cart
+        </a>
+
+        <a href="{% url 'logout' %}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h2>Order History</h2>
+
+
+    {% for order in orders %}
+
+        <div class="product-card">
+
+            <h2>
+                Order #{{ order.id }}
+            </h2>
+
+            <p>
+                Total:
+                ₹{{ order.total_amount }}
+            </p>
+
+            <p>
+                Status:
+                {{ order.status }}
+            </p>
+
+            <p>
+                Date:
+                {{ order.created_at }}
+            </p>
+
+        </div>
+
+    {% empty %}
+
+        <p>
+            You haven't placed any orders yet.
+        </p>
+
+    {% endfor %}
+
+
+    <br>
+
+    <a href="/">
+        ← Back to Home
+    </a>
+
+</div>
+
+</body>
+
+</html>

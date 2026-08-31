@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>{{ product.name }}</title>
+
+    <link rel="stylesheet"
+          href="{% static 'store/style.css' %}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>🛒 My E-Commerce Store</h1>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="{% url 'cart' %}">Cart</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <div class="product-detail">
+
+        {% if product.image %}
+
+            <img
+                src="{{ product.image }}"
+                alt="{{ product.name }}">
+
+        {% endif %}
+
+        <h1>{{ product.name }}</h1>
+
+        <p>{{ product.description }}</p>
+
+        <h2>₹{{ product.price }}</h2>
+
+        <p>
+            Available Stock: {{ product.stock }}
+        </p>
+
+
+        {% if product.stock > 0 %}
+
+            <a
+                href="{% url 'add_to_cart' product.id %}"
+                class="button"
+                onclick="return addToCartConfirm();">
+
+                Add to Cart
+
+            </a>
+
+        {% else %}
+
+            <p>Out of Stock</p>
+
+        {% endif %}
+
+
+        <br><br>
+
+        <a href="/">
+            ← Back to Products
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- JavaScript -->
+<script src="{% static 'store/script.js' %}"></script>
+
+</body>
+
+</html>

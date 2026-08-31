@@ -1,0 +1,122 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Shopping Cart</title>
+
+    <link rel="stylesheet"
+          href="{% static 'store/style.css' %}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>🛒 Shopping Cart</h1>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="{% url 'orders' %}">
+            My Orders
+        </a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h2>Your Cart</h2>
+
+
+    {% if products %}
+
+        {% for item in products %}
+
+            <div class="product-card">
+
+                <h2>
+                    {{ item.product.name }}
+                </h2>
+
+                <p>
+                    Price: ₹{{ item.product.price }}
+                </p>
+
+                <p>
+                    Quantity: {{ item.quantity }}
+                </p>
+
+                <p>
+                    Subtotal: ₹{{ item.subtotal }}
+                </p>
+
+            </div>
+
+        {% endfor %}
+
+
+        <h2>
+            Total: ₹{{ total }}
+        </h2>
+
+
+        {% if user.is_authenticated %}
+
+            <a
+                href="{% url 'checkout' %}"
+                class="button"
+                onclick="return checkoutConfirm();">
+
+                Checkout
+
+            </a>
+
+        {% else %}
+
+            <p>
+                Please login before checkout.
+            </p>
+
+            <a
+                href="{% url 'login' %}"
+                class="button">
+
+                Login
+
+            </a>
+
+        {% endif %}
+
+
+    {% else %}
+
+        <h3>
+            Your cart is empty.
+        </h3>
+
+    {% endif %}
+
+
+    <br><br>
+
+    <a href="/">
+        ← Continue Shopping
+    </a>
+
+</div>
+
+
+<!-- JavaScript -->
+<script src="{% static 'store/script.js' %}"></script>
+
+</body>
+
+</html>
